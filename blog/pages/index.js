@@ -15,7 +15,10 @@ const Home = ({ blogs }) => {
         </Col> */}
         {blogs.map((blog) => (
           <Col md='4' key={blog.slug}>
-            <CardItem blog={blog} />
+            <CardItem
+              blog={blog}
+              link={{ href: '/blogs/[slug]', as: `/blogs/${blog.slug}` }}
+            />
           </Col>
         ))}
       </Row>
