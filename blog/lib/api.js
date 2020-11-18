@@ -13,3 +13,12 @@ export const getAllBlogs = async () => {
   const results = await client.fetch(`*[_type == "blog"]{${blogFields}}`);
   return results;
 };
+
+export const getBlogBySlug = async (slug) => {
+  const result = await client
+    .fetch(`*[_type == "blog" && slug.current == $slug] {${blogFields}}`, {
+      slug,
+    })
+    .then((res) => res?.[0]);
+  return result;
+};
