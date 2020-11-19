@@ -34,6 +34,26 @@ export default createSchema({
         { name: 'subtitle', type: 'string', title: 'Subtitle' },
         { name: 'coverImage', type: 'image', title: 'Cover Image' },
         {
+          name: 'content',
+          type: 'array',
+          title: 'Content',
+          of: [
+            { type: 'block' },
+            {
+              type: 'image',
+              fields: [
+                {
+                  type: 'text',
+                  name: 'alt',
+                  title: 'Description',
+                  options: { isHighlighted: true },
+                },
+              ],
+              options: { hotspot: true },
+            },
+          ],
+        },
+        {
           name: 'date',
           type: 'datetime',
           title: 'Date',
