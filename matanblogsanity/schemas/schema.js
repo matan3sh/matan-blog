@@ -32,7 +32,18 @@ export default createSchema({
           validation: (Rule) => Rule.required().min(5),
         },
         { name: 'subtitle', type: 'string', title: 'Subtitle' },
-        { name: 'coverImage', type: 'image', title: 'Cover Image' },
+        {
+          name: 'coverImage',
+          type: 'image',
+          title: 'Cover Image',
+          fields: [
+            {
+              type: 'text',
+              name: 'alt',
+              title: 'Description',
+            },
+          ],
+        },
         {
           name: 'content',
           type: 'array',
@@ -51,6 +62,7 @@ export default createSchema({
               ],
               options: { hotspot: true },
             },
+            { type: 'code', options: { withFilename: true } },
           ],
         },
         {
