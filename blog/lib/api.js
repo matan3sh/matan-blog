@@ -6,7 +6,7 @@ const blogFields = `
   subtitle,
   'slug': slug.current,
   date,
-  'coverImage': coverImage.asset->url,
+  coverImage,
   'author': author->{name, 'avatar': avatar.asset->url},
 `;
 

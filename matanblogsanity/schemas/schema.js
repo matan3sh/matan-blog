@@ -35,6 +35,7 @@ export default createSchema({
         {
           name: 'coverImage',
           type: 'image',
+          options: { hotspot: true },
           title: 'Cover Image',
           fields: [
             {
