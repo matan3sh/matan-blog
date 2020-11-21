@@ -23,7 +23,11 @@ const CardItem = ({ blog, link }) => {
         </Card.Header>
         <div className='view overlay'>
           <Card.Img
-            src={urlFor(blog?.coverImage).height(300).url()}
+            src={urlFor(blog?.coverImage)
+              .height(300)
+              .crop('center')
+              .fit('clip')
+              .url()}
             alt={blog?.slug}
           />
         </div>
