@@ -9,9 +9,12 @@ import {
 import { Row, Col } from 'react-bootstrap';
 
 import { getAllBlogs } from 'lib/api';
+import { useGetBlogs } from 'actions';
 
-const Home = ({ blogs }) => {
+const Home = ({ blogs: initialData }) => {
   const [filter, setFilter] = useState({ view: { list: 0 } });
+
+  const { data: blogs, error } = useGetBlogs(initialData);
 
   return (
     <PageLayout>
@@ -45,7 +48,7 @@ const Home = ({ blogs }) => {
 };
 
 export async function getStaticProps() {
-  const blogs = await getAllBlogs();
+  const blogs = await getAllBlogs({ offset: 0 });
   return {
     props: {
       blogs,

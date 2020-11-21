@@ -14,8 +14,12 @@ export const urlFor = (source) => {
   return imageUrlBuilder(client).image(source);
 };
 
-export const getAllBlogs = async () => {
-  const results = await client.fetch(`*[_type == "blog"]{${blogFields}}`);
+export const getAllBlogs = async ({ offset } = { offset: 0 }) => {
+  const results = await client.fetch(
+    `*[_type == "blog"]{${blogFields}} | order(date desc) [${offset}...${
+      offset + 3
+    }]`
+  );
   return results;
 };
 
