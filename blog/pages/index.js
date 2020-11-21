@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { PageLayout } from 'components/layout';
 import { AuthorIntro, FilteringMenu } from 'components/home';
-import { Row } from 'react-bootstrap';
+import { Row, Button } from 'react-bootstrap';
 
 import { useGetBlogsPages } from 'actions/pagination';
 import { getAllBlogs } from 'lib/api';
 
 const Home = ({ blogs }) => {
-  const [filter, setFilter] = useState({ view: { list: 0 } });
+  const [filter, setFilter] = useState({ view: { list: 0 }, date: { asc: 0 } });
 
   const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetBlogsPages({
     blogs,
@@ -23,12 +23,26 @@ const Home = ({ blogs }) => {
       />
       <hr />
       <Row className='mb-5'>{pages}</Row>
+      <div style={{ textAlign: 'center' }}>
+        <Button
+          onClick={loadMore}
+          disabled={isReachingEnd || isLoadingMore}
+          size='lg'
+          variant='outline-secondary'
+        >
+          {isLoadingMore
+            ? '...'
+            : isReachingEnd
+            ? 'No More Blogs'
+            : 'Load More'}
+        </Button>
+      </div>
     </PageLayout>
   );
 };
 
 export async function getStaticProps() {
-  const blogs = await getAllBlogs({ offset: 0 });
+  const blogs = await getAllBlogs({ offset: 0, date: 'desc' });
   return {
     props: {
       blogs,
