@@ -1,12 +1,13 @@
 import { Card } from 'react-bootstrap';
+import Link from 'next/link';
 
-const CardListItem = () => {
+const CardListItem = ({ blog, link }) => {
   return (
     <Card className={`fj-card fj-card-list`}>
       <div className='card-body-wrapper'>
         <Card.Header className='d-flex flex-row'>
           <img
-            src={'https://via.placeholder.com/150'}
+            src={blog?.author?.avatar || 'https://via.placeholder.com/150'}
             className='rounded-circle mr-3'
             height='50px'
             width='50px'
@@ -14,19 +15,19 @@ const CardListItem = () => {
           />
           <div>
             <Card.Title className='font-weight-bold mb-1'>
-              Placeholder Author
+              {blog?.author?.name}
             </Card.Title>
-            <Card.Text className='card-date'>Placeholder Date</Card.Text>
+            <Card.Text className='card-date'>{blog?.date}</Card.Text>
           </div>
         </Card.Header>
         <Card.Body>
-          <Card.Title className='card-main-title'>Placeholder Title</Card.Title>
-          <Card.Text>Placehodler Subtitle</Card.Text>
+          <Card.Title className='card-main-title'>{blog?.title}</Card.Title>
+          <Card.Text>{blog?.subtitle}</Card.Text>
         </Card.Body>
       </div>
-      <a href='#' className='card-button'>
-        Read More
-      </a>
+      <Link {...link}>
+        <a className='card-button'>Read More</a>
+      </Link>
     </Card>
   );
 };
