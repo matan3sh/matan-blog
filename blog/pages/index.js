@@ -1,20 +1,18 @@
 import { useState } from 'react';
 import { PageLayout } from 'components/layout';
-import {
-  AuthorIntro,
-  CardListItem,
-  CardItem,
-  FilteringMenu,
-} from 'components/home';
-import { Row, Col } from 'react-bootstrap';
+import { AuthorIntro, FilteringMenu } from 'components/home';
+import { Row } from 'react-bootstrap';
 
+import { useGetBlogsPages } from 'actions/pagination';
 import { getAllBlogs } from 'lib/api';
-import { useGetBlogs } from 'actions';
 
-const Home = ({ blogs: initialData }) => {
+const Home = ({ blogs }) => {
   const [filter, setFilter] = useState({ view: { list: 0 } });
 
-  const { data: blogs, error } = useGetBlogs(initialData);
+  const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetBlogsPages({
+    blogs,
+    filter,
+  });
 
   return (
     <PageLayout>
@@ -24,25 +22,7 @@ const Home = ({ blogs: initialData }) => {
         onChange={(option, value) => setFilter({ ...filter, [option]: value })}
       />
       <hr />
-      <Row className='mb-5'>
-        {blogs.map((blog) =>
-          filter.view.list ? (
-            <Col md='9' key={`${blog.slug}-list`}>
-              <CardListItem
-                blog={blog}
-                link={{ href: '/blogs/[slug]', as: `/blogs/${blog.slug}` }}
-              />
-            </Col>
-          ) : (
-            <Col md='4' key={blog.slug}>
-              <CardItem
-                blog={blog}
-                link={{ href: '/blogs/[slug]', as: `/blogs/${blog.slug}` }}
-              />
-            </Col>
-          )
-        )}
-      </Row>
+      <Row className='mb-5'>{pages}</Row>
     </PageLayout>
   );
 };
