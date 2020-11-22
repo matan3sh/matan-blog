@@ -1,9 +1,9 @@
 import { Card } from 'react-bootstrap';
 import Link from 'next/link';
 
-const CardListItem = ({ blog, link }) => {
+const CardListItem = ({ blog, link, mode = 'normal' }) => {
   return (
-    <Card className={`fj-card fj-card-list`}>
+    <Card className={`fj-card fj-card-list ${mode}`}>
       <div className='card-body-wrapper'>
         <Card.Header className='d-flex flex-row'>
           <img
@@ -13,21 +13,43 @@ const CardListItem = ({ blog, link }) => {
             width='50px'
             alt='avatar'
           />
-          <div>
-            <Card.Title className='font-weight-bold mb-1'>
-              {blog?.author?.name}
-            </Card.Title>
-            <Card.Text className='card-date'>{blog?.date}</Card.Text>
-          </div>
+          {mode === 'placeholder' ? (
+            <div>
+              <Card.Title className='font-weight-bold mb-1'>
+                Placeholder Author
+              </Card.Title>
+              <Card.Text className='card-date'>Placeholder Date</Card.Text>
+            </div>
+          ) : (
+            <div>
+              <Card.Title className='font-weight-bold mb-1'>
+                {blog?.author?.name}
+              </Card.Title>
+              <Card.Text className='card-date'>{blog?.date}</Card.Text>
+            </div>
+          )}
         </Card.Header>
         <Card.Body>
-          <Card.Title className='card-main-title'>{blog?.title}</Card.Title>
-          <Card.Text>{blog?.subtitle}</Card.Text>
+          {mode === 'placeholder' ? (
+            <>
+              <Card.Title className='card-main-title'>
+                Placholder Title
+              </Card.Title>
+              <Card.Text>Placeholder Subtitle </Card.Text>
+            </>
+          ) : (
+            <>
+              <Card.Title className='card-main-title'>{blog?.title}</Card.Title>
+              <Card.Text>{blog?.subtitle}</Card.Text>
+            </>
+          )}
         </Card.Body>
       </div>
-      <Link {...link}>
-        <a className='card-button'>Read More</a>
-      </Link>
+      {link && (
+        <Link {...link}>
+          <a className='card-button'>Read More</a>
+        </Link>
+      )}
     </Card>
   );
 };
