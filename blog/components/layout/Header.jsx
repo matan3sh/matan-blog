@@ -1,15 +1,17 @@
 import { Navbar, Nav } from 'react-bootstrap';
 import Link from 'next/link';
-import { useTheme } from 'providers/ThemeProvider';
 
-const Header = () => {
-  const { theme, toggleTheme } = useTheme();
-
+const Header = ({ theme, toggle }) => {
   return (
-    <Navbar className='fj-navbar fj-nav-base' bg='transparent' expand='lg'>
+    <Navbar
+      variant={theme.type}
+      className='fj-navbar fj-nav-base'
+      bg='transparent'
+      expand='lg'
+    >
       <Navbar.Brand className='fj-navbar-brand'>
         <Link href='/' as={`/`}>
-          <a>Matan-Shaviro</a>
+          <a style={{ color: theme.fontColor }}>Matan-Shaviro</a>
         </Link>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -24,7 +26,7 @@ const Header = () => {
               </Link>
             )}
           />
-          <button className='btn btn-success' onClick={toggleTheme}>
+          <button className='btn btn-success' onClick={() => toggle()}>
             {theme.type}
           </button>
         </Nav>
