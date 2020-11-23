@@ -4,7 +4,7 @@ import { AuthorIntro, FilteringMenu } from 'components/home';
 import { Row, Button } from 'react-bootstrap';
 
 import { useGetBlogsPages } from 'actions/pagination';
-import { getAllBlogs } from 'lib/api';
+import { getPaginatedBlogs } from 'lib/api';
 
 const Home = ({ blogs }) => {
   const [filter, setFilter] = useState({ view: { list: 0 }, date: { asc: 0 } });
@@ -42,7 +42,7 @@ const Home = ({ blogs }) => {
 };
 
 export async function getStaticProps() {
-  const blogs = await getAllBlogs({ offset: 0, date: 'desc' });
+  const blogs = await getPaginatedBlogs({ offset: 0, date: 'desc' });
   return {
     props: {
       blogs,
