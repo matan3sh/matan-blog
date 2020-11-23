@@ -13,7 +13,7 @@ const BlogDetail = ({ blog }) => {
         <Col md={{ span: 10, offset: 1 }}>
           <BlogDetailHeader blog={blog} />
           <hr />
-          <BlogDetailContent content={blog.content} />
+          {blog.content && <BlogDetailContent content={blog.content} />}
         </Col>
       </Row>
     </PageLayout>

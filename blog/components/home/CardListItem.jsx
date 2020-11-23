@@ -1,4 +1,5 @@
 import { Card } from 'react-bootstrap';
+import moment from 'moment';
 import Link from 'next/link';
 
 const CardListItem = ({ blog, link, mode = 'normal' }) => {
@@ -25,7 +26,9 @@ const CardListItem = ({ blog, link, mode = 'normal' }) => {
               <Card.Title className='font-weight-bold mb-1'>
                 {blog?.author?.name}
               </Card.Title>
-              <Card.Text className='card-date'>{blog?.date}</Card.Text>
+              <Card.Text className='card-date'>
+                {moment(blog?.date).format('LLL')}
+              </Card.Text>
             </div>
           )}
         </Card.Header>

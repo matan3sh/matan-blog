@@ -2,10 +2,14 @@ import { Card } from 'react-bootstrap';
 import Link from 'next/link';
 import { urlFor } from 'lib/api';
 
+import moment from 'moment';
+
 const CardItem = ({ blog, link, mode = 'normal' }) => {
   return (
     <Card className={`fj-card ${mode}`}>
-      <div className='card-body-wrapper'>
+      <div
+        className={`card-body-wrapper ${!blog?.coverImage ? 'no-image' : ''}`}
+      >
         <Card.Header className='d-flex flex-row'>
           <img
             src={blog?.author?.avatar || 'https://via.placeholder.com/150'}
@@ -27,7 +31,9 @@ const CardItem = ({ blog, link, mode = 'normal' }) => {
                 <Card.Title className='font-weight-bold mb-1'>
                   {blog?.author?.name}
                 </Card.Title>
-                <Card.Text className='card-date'>{blog?.date}</Card.Text>
+                <Card.Text className='card-date'>
+                  {moment(blog?.date).format('LLL')}
+                </Card.Text>
               </>
             )}
           </div>
@@ -36,14 +42,16 @@ const CardItem = ({ blog, link, mode = 'normal' }) => {
           {mode === 'placeholder' ? (
             <div className='image-placeholder' />
           ) : (
-            <Card.Img
-              src={urlFor(blog?.coverImage)
-                .height(300)
-                .crop('center')
-                .fit('clip')
-                .url()}
-              alt={blog?.slug}
-            />
+            blog?.coverImage && (
+              <Card.Img
+                src={urlFor(blog?.coverImage)
+                  .height(300)
+                  .crop('center')
+                  .fit('clip')
+                  .url()}
+                alt={blog?.slug}
+              />
+            )
           )}
         </div>
         <Card.Body>

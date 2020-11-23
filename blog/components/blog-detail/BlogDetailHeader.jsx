@@ -1,4 +1,5 @@
 import { urlFor } from 'lib/api';
+import moment from 'moment';
 
 const BlogDetailHeader = ({ blog }) => {
   return (
@@ -12,18 +13,19 @@ const BlogDetailHeader = ({ blog }) => {
           alt='avatar'
         />
         {blog?.author?.name}
-        {', '} {blog?.date}
+        {', '} {moment(blog?.date).format('LLL')}
       </p>
       <h1 className='font-weight-bold blog-detail-header-title mb-0'>
         {blog?.title}
       </h1>
       <h2 className='blog-detail-header-subtitle mb-3'>{blog?.subtitle}</h2>
-      {/* Check if contains cover image */}
-      <img
-        className='img-fluid rounded'
-        src={urlFor(blog?.coverImage).height(400).url()}
-        alt=''
-      />
+      {blog?.coverImage && (
+        <img
+          className='img-fluid rounded'
+          src={urlFor(blog?.coverImage).height(400).url()}
+          alt=''
+        />
+      )}
     </div>
   );
 };
