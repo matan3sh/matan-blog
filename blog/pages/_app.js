@@ -1,3 +1,4 @@
+import ThemeProvider from 'providers/ThemeProvider';
 import { library, config } from '@fortawesome/fontawesome-svg-core';
 import {
   faBorderAll,
@@ -15,7 +16,11 @@ import 'styles/index.scss';
 import 'highlight.js/styles/atom-one-dark.css';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <ThemeProvider>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
 
 export default MyApp;
