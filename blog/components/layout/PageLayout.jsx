@@ -1,8 +1,9 @@
+import Head from 'next/head';
+import { Container } from 'react-bootstrap';
+import { useTheme } from 'providers/ThemeProvider';
+
 import Header from './Header';
 import Footer from './Footer';
-import { Container } from 'react-bootstrap';
-import Head from 'next/head';
-import { useTheme } from 'providers/ThemeProvider';
 
 const PageLayout = ({ children, className }) => {
   const { theme, toggleTheme } = useTheme();

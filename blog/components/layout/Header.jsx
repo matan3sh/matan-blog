@@ -1,5 +1,6 @@
 import { Navbar, Nav } from 'react-bootstrap';
 import Link from 'next/link';
+import ThemeToggle from './ThemeToggle';
 
 const Header = ({ theme, toggle }) => {
   return (
@@ -17,6 +18,7 @@ const Header = ({ theme, toggle }) => {
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='ml-auto'>
+          <ThemeToggle onChange={toggle} />
           <Nav.Link
             className='fj-navbar-item fj-navbar-link'
             href='/'
@@ -26,9 +28,6 @@ const Header = ({ theme, toggle }) => {
               </Link>
             )}
           />
-          <button className='btn btn-success' onClick={() => toggle()}>
-            {theme.type}
-          </button>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
