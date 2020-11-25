@@ -34,3 +34,4 @@ yarn-error.log*
 .vercel
 
 /matanblogsanity/node_modules
+/matanblogsanity/.env.development
