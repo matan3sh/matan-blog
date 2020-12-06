@@ -8,4 +8,10 @@ const options = {
   // useCdn === false, gives you little bit slower respone, but latest data
 };
 
+export const previewClient = sanityClient({
+  ...options,
+  useCdn: false,
+  token: process.env.SANITY_API_TOKEN,
+});
+
 export default sanityClient(options);
