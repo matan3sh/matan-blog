@@ -6,7 +6,9 @@ import { Row, Button } from 'react-bootstrap';
 import { useGetBlogsPages } from 'actions/pagination';
 import { getPaginatedBlogs } from 'lib/api';
 
-const Home = ({ blogs }) => {
+import BlogPreviewAlert from 'components/blog-detail/BlogPreviewAlert';
+
+const Home = ({ blogs, preview }) => {
   const [filter, setFilter] = useState({ view: { list: 0 }, date: { asc: 0 } });
 
   const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetBlogsPages({
@@ -16,6 +18,7 @@ const Home = ({ blogs }) => {
 
   return (
     <PageLayout>
+      {preview && <BlogPreviewAlert />}
       <AuthorIntro />
       <FilteringMenu
         filter={filter}
@@ -41,11 +44,12 @@ const Home = ({ blogs }) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps({ preview = false }) {
   const blogs = await getPaginatedBlogs({ offset: 0, date: 'desc' });
   return {
     props: {
       blogs,
+      preview,
     },
   };
 }
