@@ -43,6 +43,6 @@ export const getBlogBySlug = async (slug, preview) => {
         content[]{..., "asset": asset->}}`,
       { slug }
     )
-    .then((res) => (preview ? res?.[1] : res?.[0]));
+    .then((res) => (preview ? (res?.[1] ? res[1] : res?.[0]) : res?.[0]));
   return result;
 };
